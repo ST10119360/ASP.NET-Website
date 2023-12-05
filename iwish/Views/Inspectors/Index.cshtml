@@ -1,0 +1,45 @@
+﻿@model IEnumerable<iwish.Models.Inspector>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" style="color: lightseagreen">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InspectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InspectEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InspectMobile)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.InspectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InspectEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InspectMobile)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.InspectNO }) |
+            @Html.ActionLink("Details", "Details", new { id=item.InspectNO }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.InspectNO })
+        </td>
+    </tr>
+}
+
+</table>

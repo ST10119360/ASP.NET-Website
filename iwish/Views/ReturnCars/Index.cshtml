@@ -1,0 +1,63 @@
+﻿@model IEnumerable<iwish.Models.ReturnCar>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" style="color: lightseagreen">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ElapsedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Car.CarMake)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Driver.DriverName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Inspector.InspectName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReturnDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ElapsedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Car.CarMake)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Driver.DriverName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Inspector.InspectName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReturnNo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReturnNo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReturnNo })
+        </td>
+    </tr>
+}
+
+</table>

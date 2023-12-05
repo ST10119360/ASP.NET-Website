@@ -1,0 +1,66 @@
+﻿@model iwish.Models.Rental
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Rental</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RentalFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Car.CarMake)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Car.CarMake)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Driver.DriverName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Driver.DriverName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inspector.InspectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inspector.InspectName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RentalNo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

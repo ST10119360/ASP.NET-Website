@@ -1,0 +1,42 @@
+﻿@model iwish.Models.Inspector
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Inspector</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InspectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InspectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InspectEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InspectEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InspectMobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InspectMobile)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InspectNO }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

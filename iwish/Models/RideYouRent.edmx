@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ST10119360_CLDV6211_Part_2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarNo" />
+          </Key>
+          <Property Name="CarNo" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="CarMake" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CarModel" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="KmTrav" Type="int" Nullable="false" />
+          <Property Name="KmServ" Type="int" Nullable="false" />
+          <Property Name="Avalaible" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverID" />
+          </Key>
+          <Property Name="DriverID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DriverName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="DriverAddress" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="DriverEmail" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DriverMobile" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inspectors">
+          <Key>
+            <PropertyRef Name="InspectNO" />
+          </Key>
+          <Property Name="InspectNO" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="InspectName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="InspectEmail" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="InspectMobile" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rentals">
+          <Key>
+            <PropertyRef Name="RentalNo" />
+          </Key>
+          <Property Name="RentalNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="int" Nullable="false" />
+          <Property Name="EndDate" Type="int" Nullable="false" />
+          <Property Name="RentalFee" Type="int" Nullable="false" />
+          <Property Name="CarNo" Type="varchar" MaxLength="6" />
+          <Property Name="InspectNO" Type="varchar" MaxLength="4" />
+          <Property Name="DriverID" Type="int" />
+        </EntityType>
+        <EntityType Name="ReturnCars">
+          <Key>
+            <PropertyRef Name="ReturnNo" />
+          </Key>
+          <Property Name="ReturnNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReturnDate" Type="int" Nullable="false" />
+          <Property Name="ElapsedDate" Type="int" Nullable="false" />
+          <Property Name="Fine" Type="int" Nullable="false" />
+          <Property Name="CarNo" Type="varchar" MaxLength="6" />
+          <Property Name="InspectNO" Type="varchar" MaxLength="4" />
+          <Property Name="DriverID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Rentals__CarNo__2F10007B">
+          <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="Rentals" Type="Self.Rentals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarNo" />
+            </Principal>
+            <Dependent Role="Rentals">
+              <PropertyRef Name="CarNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rentals__DriverI__30F848ED">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="Rentals" Type="Self.Rentals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverID" />
+            </Principal>
+            <Dependent Role="Rentals">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rentals__Inspect__300424B4">
+          <End Role="Inspectors" Type="Self.Inspectors" Multiplicity="0..1" />
+          <End Role="Rentals" Type="Self.Rentals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inspectors">
+              <PropertyRef Name="InspectNO" />
+            </Principal>
+            <Dependent Role="Rentals">
+              <PropertyRef Name="InspectNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReturnCar__CarNo__2A4B4B5E">
+          <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="ReturnCars" Type="Self.ReturnCars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarNo" />
+            </Principal>
+            <Dependent Role="ReturnCars">
+              <PropertyRef Name="CarNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReturnCar__Drive__2C3393D0">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="ReturnCars" Type="Self.ReturnCars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverID" />
+            </Principal>
+            <Dependent Role="ReturnCars">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReturnCar__Inspe__2B3F6F97">
+          <End Role="Inspectors" Type="Self.Inspectors" Multiplicity="0..1" />
+          <End Role="ReturnCars" Type="Self.ReturnCars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inspectors">
+              <PropertyRef Name="InspectNO" />
+            </Principal>
+            <Dependent Role="ReturnCars">
+              <PropertyRef Name="InspectNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ST10119360_CLDV6211_Part_2ModelStoreContainer">
+          <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inspectors" EntityType="Self.Inspectors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rentals" EntityType="Self.Rentals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReturnCars" EntityType="Self.ReturnCars" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Rentals__CarNo__2F10007B" Association="Self.FK__Rentals__CarNo__2F10007B">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rentals__DriverI__30F848ED" Association="Self.FK__Rentals__DriverI__30F848ED">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rentals__Inspect__300424B4" Association="Self.FK__Rentals__Inspect__300424B4">
+            <End Role="Inspectors" EntitySet="Inspectors" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReturnCar__CarNo__2A4B4B5E" Association="Self.FK__ReturnCar__CarNo__2A4B4B5E">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="ReturnCars" EntitySet="ReturnCars" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReturnCar__Drive__2C3393D0" Association="Self.FK__ReturnCar__Drive__2C3393D0">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="ReturnCars" EntitySet="ReturnCars" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReturnCar__Inspe__2B3F6F97" Association="Self.FK__ReturnCar__Inspe__2B3F6F97">
+            <End Role="Inspectors" EntitySet="Inspectors" />
+            <End Role="ReturnCars" EntitySet="ReturnCars" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ST10119360_CLDV6211_Part_2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarNo" />
+          </Key>
+          <Property Name="CarNo" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CarMake" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CarModel" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KmTrav" Type="Int32" Nullable="false" />
+          <Property Name="KmServ" Type="Int32" Nullable="false" />
+          <Property Name="Avalaible" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Rentals" Relationship="Self.FK__Rentals__CarNo__2F10007B" FromRole="Car" ToRole="Rentals" />
+          <NavigationProperty Name="ReturnCars" Relationship="Self.FK__ReturnCar__CarNo__2A4B4B5E" FromRole="Car" ToRole="ReturnCars" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverID" />
+          </Key>
+          <Property Name="DriverID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DriverName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DriverAddress" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DriverEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DriverMobile" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rentals" Relationship="Self.FK__Rentals__DriverI__30F848ED" FromRole="Driver" ToRole="Rentals" />
+          <NavigationProperty Name="ReturnCars" Relationship="Self.FK__ReturnCar__Drive__2C3393D0" FromRole="Driver" ToRole="ReturnCars" />
+        </EntityType>
+        <EntityType Name="Inspector">
+          <Key>
+            <PropertyRef Name="InspectNO" />
+          </Key>
+          <Property Name="InspectNO" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InspectName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InspectEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InspectMobile" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rentals" Relationship="Self.FK__Rentals__Inspect__300424B4" FromRole="Inspectors" ToRole="Rentals" />
+          <NavigationProperty Name="ReturnCars" Relationship="Self.FK__ReturnCar__Inspe__2B3F6F97" FromRole="Inspectors" ToRole="ReturnCars" />
+        </EntityType>
+        <EntityType Name="Rental">
+          <Key>
+            <PropertyRef Name="RentalNo" />
+          </Key>
+          <Property Name="RentalNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="Int32" Nullable="false" />
+          <Property Name="EndDate" Type="Int32" Nullable="false" />
+          <Property Name="RentalFee" Type="Int32" Nullable="false" />
+          <Property Name="CarNo" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="InspectNO" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="DriverID" Type="Int32" />
+          <NavigationProperty Name="Car" Relationship="Self.FK__Rentals__CarNo__2F10007B" FromRole="Rentals" ToRole="Car" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK__Rentals__DriverI__30F848ED" FromRole="Rentals" ToRole="Driver" />
+          <NavigationProperty Name="Inspector" Relationship="Self.FK__Rentals__Inspect__300424B4" FromRole="Rentals" ToRole="Inspectors" />
+        </EntityType>
+        <EntityType Name="ReturnCar">
+          <Key>
+            <PropertyRef Name="ReturnNo" />
+          </Key>
+          <Property Name="ReturnNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReturnDate" Type="Int32" Nullable="false" />
+          <Property Name="ElapsedDate" Type="Int32" Nullable="false" />
+          <Property Name="Fine" Type="Int32" Nullable="false" />
+          <Property Name="CarNo" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="InspectNO" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="DriverID" Type="Int32" />
+          <NavigationProperty Name="Car" Relationship="Self.FK__ReturnCar__CarNo__2A4B4B5E" FromRole="ReturnCars" ToRole="Car" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK__ReturnCar__Drive__2C3393D0" FromRole="ReturnCars" ToRole="Driver" />
+          <NavigationProperty Name="Inspector" Relationship="Self.FK__ReturnCar__Inspe__2B3F6F97" FromRole="ReturnCars" ToRole="Inspectors" />
+        </EntityType>
+        <Association Name="FK__Rentals__CarNo__2F10007B">
+          <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="Rentals" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarNo" />
+            </Principal>
+            <Dependent Role="Rentals">
+              <PropertyRef Name="CarNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReturnCar__CarNo__2A4B4B5E">
+          <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="ReturnCars" Type="Self.ReturnCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarNo" />
+            </Principal>
+            <Dependent Role="ReturnCars">
+              <PropertyRef Name="CarNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rentals__DriverI__30F848ED">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="Rentals" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverID" />
+            </Principal>
+            <Dependent Role="Rentals">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReturnCar__Drive__2C3393D0">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="ReturnCars" Type="Self.ReturnCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverID" />
+            </Principal>
+            <Dependent Role="ReturnCars">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rentals__Inspect__300424B4">
+          <End Role="Inspectors" Type="Self.Inspector" Multiplicity="0..1" />
+          <End Role="Rentals" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inspectors">
+              <PropertyRef Name="InspectNO" />
+            </Principal>
+            <Dependent Role="Rentals">
+              <PropertyRef Name="InspectNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReturnCar__Inspe__2B3F6F97">
+          <End Role="Inspectors" Type="Self.Inspector" Multiplicity="0..1" />
+          <End Role="ReturnCars" Type="Self.ReturnCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inspectors">
+              <PropertyRef Name="InspectNO" />
+            </Principal>
+            <Dependent Role="ReturnCars">
+              <PropertyRef Name="InspectNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ST10119360_CLDV6211_Part_2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="Self.Car" />
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
+          <EntitySet Name="Inspectors" EntityType="Self.Inspector" />
+          <EntitySet Name="Rentals" EntityType="Self.Rental" />
+          <EntitySet Name="ReturnCars" EntityType="Self.ReturnCar" />
+          <AssociationSet Name="FK__Rentals__CarNo__2F10007B" Association="Self.FK__Rentals__CarNo__2F10007B">
+            <End Role="Car" EntitySet="Cars" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReturnCar__CarNo__2A4B4B5E" Association="Self.FK__ReturnCar__CarNo__2A4B4B5E">
+            <End Role="Car" EntitySet="Cars" />
+            <End Role="ReturnCars" EntitySet="ReturnCars" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rentals__DriverI__30F848ED" Association="Self.FK__Rentals__DriverI__30F848ED">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReturnCar__Drive__2C3393D0" Association="Self.FK__ReturnCar__Drive__2C3393D0">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="ReturnCars" EntitySet="ReturnCars" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rentals__Inspect__300424B4" Association="Self.FK__Rentals__Inspect__300424B4">
+            <End Role="Inspectors" EntitySet="Inspectors" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReturnCar__Inspe__2B3F6F97" Association="Self.FK__ReturnCar__Inspe__2B3F6F97">
+            <End Role="Inspectors" EntitySet="Inspectors" />
+            <End Role="ReturnCars" EntitySet="ReturnCars" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ST10119360_CLDV6211_Part_2ModelStoreContainer" CdmEntityContainer="ST10119360_CLDV6211_Part_2Entities">
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="ST10119360_CLDV6211_Part_2Model.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="CarNo" ColumnName="CarNo" />
+                <ScalarProperty Name="CarMake" ColumnName="CarMake" />
+                <ScalarProperty Name="CarModel" ColumnName="CarModel" />
+                <ScalarProperty Name="KmTrav" ColumnName="KmTrav" />
+                <ScalarProperty Name="KmServ" ColumnName="KmServ" />
+                <ScalarProperty Name="Avalaible" ColumnName="Avalaible" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="ST10119360_CLDV6211_Part_2Model.Driver">
+              <MappingFragment StoreEntitySet="Driver">
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="DriverAddress" ColumnName="DriverAddress" />
+                <ScalarProperty Name="DriverEmail" ColumnName="DriverEmail" />
+                <ScalarProperty Name="DriverMobile" ColumnName="DriverMobile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inspectors">
+            <EntityTypeMapping TypeName="ST10119360_CLDV6211_Part_2Model.Inspector">
+              <MappingFragment StoreEntitySet="Inspectors">
+                <ScalarProperty Name="InspectNO" ColumnName="InspectNO" />
+                <ScalarProperty Name="InspectName" ColumnName="InspectName" />
+                <ScalarProperty Name="InspectEmail" ColumnName="InspectEmail" />
+                <ScalarProperty Name="InspectMobile" ColumnName="InspectMobile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rentals">
+            <EntityTypeMapping TypeName="ST10119360_CLDV6211_Part_2Model.Rental">
+              <MappingFragment StoreEntitySet="Rentals">
+                <ScalarProperty Name="RentalNo" ColumnName="RentalNo" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="RentalFee" ColumnName="RentalFee" />
+                <ScalarProperty Name="CarNo" ColumnName="CarNo" />
+                <ScalarProperty Name="InspectNO" ColumnName="InspectNO" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReturnCars">
+            <EntityTypeMapping TypeName="ST10119360_CLDV6211_Part_2Model.ReturnCar">
+              <MappingFragment StoreEntitySet="ReturnCars">
+                <ScalarProperty Name="ReturnNo" ColumnName="ReturnNo" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="ElapsedDate" ColumnName="ElapsedDate" />
+                <ScalarProperty Name="Fine" ColumnName="Fine" />
+                <ScalarProperty Name="CarNo" ColumnName="CarNo" />
+                <ScalarProperty Name="InspectNO" ColumnName="InspectNO" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
